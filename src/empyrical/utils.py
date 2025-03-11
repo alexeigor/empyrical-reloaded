@@ -25,10 +25,16 @@ from numpy.lib.stride_tricks import as_strided
 from pandas.tseries.offsets import BDay
 from pytz import UTC
 
-try:  # incompatible with Python 3.12
-    from pandas_datareader import data as web
-except ImportError:
+import sys
+
+if sys.version_info >= (3, 12):
+    print("Error: pandas_datareader may not be compatible with Python 3.12 or later.")
     web = None
+else:
+    try:
+        from pandas_datareader import data as web
+    except ImportError:
+        web = None
 
 try:
     import yfinance as yf
